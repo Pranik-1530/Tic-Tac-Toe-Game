@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic-Tac-Toe Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Height of the viewport */
+            margin: 0; /* Remove default margin */
+            background: linear-gradient(to right,rgb(101, 192, 248),pink, rgb(126, 126, 234));
+            background-size: 600% 600%; /* Adjust to cover full transition area */
+            animation: gradientAnimation 15s ease infinite; /* Animation for smooth transition */
+        }
+
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .login-container {
+            text-align: center;
+            padding: 50px;
+            border: 3px solid #ccc;
+            background-color: #e9a2a2;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        input[type="text"] {
+            margin: 15px 0;
+            padding: 20px;
+            width: calc;
+        }
+        button {
+            padding: 10px 30px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Tic-Tac-Toe</h2>
+        <form id="loginForm">
+            <input type="text" id="player1" placeholder="Enter Player 1 " required><br>
+            <input type="text" id="player2" placeholder="Enter Player 2 " required><br>
+            <button type="submit">Start Game</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const player1 = document.getElementById('player1').value;
+            const player2 = document.getElementById('player2').value;
+            localStorage.setItem('player1', player1);
+            localStorage.setItem('player2', player2);
+            window.location.href = 'home.html';
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Winner!</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(to right, #ff9966, #ff5e62);
+            color: #fff;
+            font-family: Arial, sans-serif;
+        }
+        h1 {
+            font-size: 3em;
+            margin: 0;
+        }
+        p {
+            font-size: 1.5em;
+            margin: 10px 0;
+        }
+        .button-container {
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 1em;
+            color: #fff;
+            background-color: #ff5e62;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #ff9966;
+        }
+    </style>
+</head>
+<body>
+    <h1>Congratulations!</h1>
+    <p id="winnerMessage"></p>
+    <div class="button-container">
+        <button onclick="window.location.href='home.html'">Play Again</button>
+        <button onclick="window.location.href='login.html'">New Game</button>
+    </div>
+    <script>
+        const winner = localStorage.getItem('winner');
+        document.getElementById('winnerMessage').innerText = winner;
+    </script>
+</body>
+</html>

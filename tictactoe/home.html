@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic-Tac-Toe Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(to right, #ff9966, #ff5e62);
+            color: #fff;
+        }
+        h2 {
+            font-size: 2.5em;
+            margin: 0;
+        }
+        #playerInfo {
+            margin-top: 10px;
+            font-size: 1.2em;
+        }
+        .board {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-gap: 10px;
+            margin-top: 20px;
+        }
+        .cell {
+            width: 100px;
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 2px solid #fff;
+            border-radius: 10px;
+            font-size: 2em;
+            color: #ff5e62;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .cell.X {
+            background-color: #3498db;
+            color: #fff;
+        }
+        .cell.O {
+            background-color: #e74c3c;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <h2>Tic-Tac-Toe Game</h2>
+    <div id="playerInfo"></div>
+    <div class="board" id="board"></div>
+
+    <script>
+        const player1 = localStorage.getItem('player1') || 'Player 1';
+        const player2 = localStorage.getItem('player2') || 'Player 2';
+        document.getElementById('playerInfo').innerText = `${player1}  vs ${player2}`;
+
+        let board = Array(9).fill(" ");
+        let currentPlayer = 'X';
+
+        function checkWinner(board, player) {
+            const winCombinations = [
+                [0, 1, 2], [3, 4, 5], [6, 7, 8],  // rows
+                [0, 3, 6], [1, 4, 7], [2, 5, 8],  // columns
+                [0, 4, 8], [2, 4, 6]              // diagonals
+            ];
+
+            return winCombinations.some(combo => 
+                combo.every(index => board[index] === player)
+            );
+        }
+
+        function renderBoard() {
+            const boardElement = document.getElementById('board');
+            boardElement.innerHTML = '';
+            board.forEach((cell, index) => {
+                const cellElement = document.createElement('div');
+                cellElement.classList.add('cell');
+                cellElement.innerText = cell;
+                if (cell === 'X' || cell === 'O') {
+                    cellElement.classList.add(cell); // Add the class for color
+                }
+                cellElement.addEventListener('click', () => makeMove(index));
+                boardElement.appendChild(cellElement);
+            });
+        }
+
+        function makeMove(index) {
+            if (board[index] === " ") {
+                board[index] = currentPlayer;
+                if (checkWinner(board, currentPlayer)) {
+                    const winner = `Player ${currentPlayer === 'X' ? player1 : player2} (${currentPlayer}) wins!`;
+                    localStorage.setItem('winner', winner);
+                    window.location.href = 'winner.html';
+                } else if (!board.includes(" ")) {
+                    localStorage.setItem('winner', "It's a tie!");
+                    window.location.href = 'winner.html';
+                }
+                currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+                renderBoard();
+            } else {
+                alert("Invalid move! That spot is already taken.");
+            }
+        }
+
+        renderBoard();
+    </script>
+</body>
+</html>
